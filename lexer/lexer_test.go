@@ -57,7 +57,7 @@ func TestNextToken(t *testing.T) {
 		{token.IDENT, "ten"},
 		{token.RPAREN, ")"},
 		{token.SEMICOLON, ";"},
-		{token.EOF, ""},
+		{token.EOF, "\x00"},
 	}
 
 	lexer := New(input)
