@@ -19,6 +19,7 @@ const (
 	ASSIGN = "="
 	PLUS   = "+"
 	MINUS  = "-"
+	DIVIDE = "/"
 
 	SEMICOLON = ";"
 	COMMA     = ","
