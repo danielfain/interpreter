@@ -19,6 +19,7 @@ func TestNextToken(t *testing.T) {
 		
 		let sub = 10 - 5;
 		let divide = 10 / 2;
+		let multiply = 10 * 2;
 	`
 
 	tests := []struct {
@@ -78,6 +79,13 @@ func TestNextToken(t *testing.T) {
 		{token.ASSIGN, "="},
 		{token.INT, "10"},
 		{token.DIVIDE, "/"},
+		{token.INT, "2"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "multiply"},
+		{token.ASSIGN, "="},
+		{token.INT, "10"},
+		{token.MULTIPLY, "*"},
 		{token.INT, "2"},
 		{token.SEMICOLON, ";"},
 		{token.EOF, "\x00"},

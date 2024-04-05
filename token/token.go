@@ -16,10 +16,11 @@ const (
 	FLOAT = "FLOAT"
 	STR   = "STRING"
 
-	ASSIGN = "="
-	PLUS   = "+"
-	MINUS  = "-"
-	DIVIDE = "/"
+	ASSIGN   = "="
+	PLUS     = "+"
+	MINUS    = "-"
+	DIVIDE   = "/"
+	MULTIPLY = "*"
 
 	SEMICOLON = ";"
 	COMMA     = ","

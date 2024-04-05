@@ -39,6 +39,8 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.MINUS, l.char)
 	case '/':
 		tok = newToken(token.DIVIDE, l.char)
+	case '*':
+		tok = newToken(token.MULTIPLY, l.char)
 	case '{':
 		tok = newToken(token.LBRACE, l.char)
 	case '}':
