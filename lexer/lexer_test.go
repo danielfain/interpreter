@@ -16,6 +16,8 @@ func TestNextToken(t *testing.T) {
 		};
 
 		let result = add(five, ten);
+		
+		let sub = 10 - 5;
 	`
 
 	tests := []struct {
@@ -62,6 +64,13 @@ func TestNextToken(t *testing.T) {
 		{token.COMMA, ","},
 		{token.IDENT, "ten"},
 		{token.RPAREN, ")"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "sub"},
+		{token.ASSIGN, "="},
+		{token.INT, "10"},
+		{token.MINUS, "-"},
+		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		{token.EOF, "\x00"},
 	}
