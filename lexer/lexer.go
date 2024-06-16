@@ -24,31 +24,43 @@ func (l *Lexer) NextToken() token.Token {
 
 	switch l.char {
 	case '=':
-		tok = newToken(token.ASSIGN, l.char)
+		if l.peek() == '=' {
+			eq := l.input[l.position : l.readPosition+1]
+			tok = newToken(token.EQ, eq)
+			l.readChar()
+		} else {
+			tok = newToken(token.ASSIGN, string(l.char))
+		}
 	case ';':
-		tok = newToken(token.SEMICOLON, l.char)
+		tok = newToken(token.SEMICOLON, string(l.char))
 	case '(':
-		tok = newToken(token.LPAREN, l.char)
+		tok = newToken(token.LPAREN, string(l.char))
 	case ')':
-		tok = newToken(token.RPAREN, l.char)
+		tok = newToken(token.RPAREN, string(l.char))
 	case ',':
-		tok = newToken(token.COMMA, l.char)
+		tok = newToken(token.COMMA, string(l.char))
 	case '+':
-		tok = newToken(token.PLUS, l.char)
+		tok = newToken(token.PLUS, string(l.char))
 	case '-':
-		tok = newToken(token.MINUS, l.char)
+		tok = newToken(token.MINUS, string(l.char))
 	case '/':
-		tok = newToken(token.DIVIDE, l.char)
+		tok = newToken(token.DIVIDE, string(l.char))
 	case '*':
-		tok = newToken(token.MULTIPLY, l.char)
+		tok = newToken(token.MULTIPLY, string(l.char))
 	case '!':
-		tok = newToken(token.BANG, l.char)
+		if l.peek() == '=' {
+			neq := l.input[l.position : l.readPosition+1]
+			tok = newToken(token.NEQ, neq)
+			l.readChar()
+		} else {
+			tok = newToken(token.BANG, string(l.char))
+		}
 	case '{':
-		tok = newToken(token.LBRACE, l.char)
+		tok = newToken(token.LBRACE, string(l.char))
 	case '}':
-		tok = newToken(token.RBRACE, l.char)
+		tok = newToken(token.RBRACE, string(l.char))
 	case 0:
-		tok = newToken(token.EOF, l.char)
+		tok = newToken(token.EOF, string(l.char))
 	default:
 		if isLetter(l.char) {
 			tok.Literal = l.readIdentifier()
@@ -60,7 +72,7 @@ func (l *Lexer) NextToken() token.Token {
 			tok.Type = tokenType
 			return tok
 		} else {
-			tok = newToken(token.ILLEGAL, l.char)
+			tok = newToken(token.ILLEGAL, string(l.char))
 		}
 	}
 
@@ -132,6 +144,14 @@ func (l *Lexer) readChar() {
 	l.readPosition += 1
 }
 
-func newToken(tokenType token.TokenType, ch byte) token.Token {
-	return token.Token{Type: tokenType, Literal: string(ch)}
+func (l *Lexer) peek() byte {
+	if l.readPosition >= len(l.input) {
+		return 0
+	}
+
+	return l.input[l.readPosition]
+}
+
+func newToken(tokenType token.TokenType, literal string) token.Token {
+	return token.Token{Type: tokenType, Literal: literal}
 }
